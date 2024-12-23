@@ -1,0 +1,50 @@
+DROP TABLE IF EXISTS Person;
+
+--1
+
+CREATE TABLE Person
+(
+	"ID" INTEGER,
+	"First_Name" VARCHAR(20),
+	"Last_Name" VARCHAR(20),
+	"Gender" CHARACTER,
+	"Age" SMALLINT
+);
+
+INSERT INTO Person
+VALUES
+(1, 'Jamal', 'LeBron', 'M', 25),
+(2, 'Ava', 'Tyson', 'F', 28),
+(3, 'Old', 'MacDonald', 'M', 69),
+(4, 'Helen', 'Keller', 'F', 87);
+
+SELECT * FROM Person;
+
+--2
+
+SELECT * FROM Person
+WHERE "Gender" = 'M';
+
+--3
+
+SELECT * FROM Person
+WHERE "Gender" = 'F' AND "Age" > 30;
+
+--4
+
+ALTER TABLE Person
+ADD COLUMN "Working_EXP" INTEGER;
+
+UPDATE Person
+SET "Working_EXP" = 3
+WHERE "Gender" = 'M' AND "Age" > 25;
+
+--5
+
+SELECT * FROM Person
+ORDER BY "Last_Name";
+
+--6
+
+SELECT * FROM Person
+WHERE "First_Name" LIKE 'A%' OR "Last_Name" LIKE 'A%';
