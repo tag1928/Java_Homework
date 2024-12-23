@@ -1,0 +1,78 @@
+--1
+
+DROP TABLE IF EXISTS "Students_Subjects";
+DROP TABLE IF EXISTS "Subjects";
+DROP TABLE IF EXISTS "Students";
+DROP TABLE IF EXISTS "Towns";
+
+CREATE TABLE "Students"
+(
+	"ID" SERIAL PRIMARY KEY,
+	"Name" VARCHAR(30),
+	"Surname" VARCHAR(30),
+	"ID_Num" INTEGER,
+	"Gender" CHARACTER
+);
+
+CREATE TABLE "Towns"
+(
+	"ID" SERIAL PRIMARY KEY,
+	"Name" VARCHAR(40)
+);
+
+ALTER TABLE "Students"
+ADD COLUMN "TownID" INTEGER REFERENCES "Towns"("ID");
+
+INSERT INTO "Towns"("Name")
+VALUES
+('Clawgmington'),
+('Zimbabwe'),
+('The Middle of Nowhere');
+
+INSERT INTO "Students"("Name", "Surname", "ID_Num", "Gender", "TownID")
+VALUES
+('Tyrone', 'Jaquavius', 69420, 'M', '2'),
+('Jerome', 'Schmitterling', 12345, 'M', '3'),
+('Ava', 'Tyson', 92328, 'F', '1'),
+('Helen', 'Keller', 19698, 'F', NULL);
+
+SELECT * FROM
+"Students" S
+FULL OUTER JOIN
+"Towns" T
+ON S."TownID" = T."ID";
+
+--2
+
+CREATE TABLE "Subjects"
+(
+	"ID" SERIAL PRIMARY KEY,
+	"Name" VARCHAR(20)
+);
+
+INSERT INTO "Subjects"("Name")
+VALUES
+('Scamming'),
+('Methematics'),
+('History'),
+('Moderating');
+
+CREATE TABLE "Students_Subjects"
+(
+	"StudentID" INTEGER
+	REFERENCES "Students"("ID")
+	ON DELETE CASCADE,
+	"SubjectID" INTEGER
+	REFERENCES "Subjects"("ID")
+	ON DELETE CASCADE,
+	PRIMARY KEY ("StudentID", "SubjectID")
+);
+
+INSERT INTO "Students_Subjects"
+VALUES
+(1, 1),
+(2, 3),
+(2, 4),
+(3, 1),
+(3, 2),
+(4, 3);
